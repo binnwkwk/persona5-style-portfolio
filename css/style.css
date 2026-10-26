@@ -595,3 +595,42 @@ body.has-art-home #big-name .ch:not(.box):not(.boxw){
     overflow: visible;
   }
 }
+
+/* FULLSCREEN LANDSCAPE MODE */
+#shell.landscape-mode {
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  max-width: none;
+  margin: 0;
+  overflow: auto;
+  background: #080808;
+}
+
+#shell.landscape-mode #stage {
+  width: 100%;
+  height: calc(100dvh - 100px);
+  overflow: auto;
+}
+
+#shell.landscape-mode .screen {
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+#shell.landscape-mode #hud-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+@media (orientation: landscape) and (max-height: 500px) {
+  #shell.landscape-mode #stage {
+    height: calc(100dvh - 75px);
+  }
+
+  #shell.landscape-mode .paper {
+    max-width: 90vw;
+  }
+}

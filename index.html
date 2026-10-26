@@ -173,5 +173,28 @@
 <script src="js/model.js" defer></script>
 <script src="js/view.js" defer></script>
 <script src="js/controller.js" defer></script>
+<script>
+  const enterButton = document.getElementById("enter-fullscreen");
+  const entryScreen = document.getElementById("entry-screen");
+  const portfolio = document.getElementById("shell");
+
+  enterButton.addEventListener("click", async () => {
+    enterButton.disabled = true;
+    enterButton.textContent = "LOADING...";
+
+    portfolio.classList.add("entry-ready");
+
+    try {
+      if (portfolio.requestFullscreen) {
+        await portfolio.requestFullscreen();
+      }
+    } catch (error) {
+      // Tetap lanjut jika fullscreen tidak didukung.
+    }
+
+    entryScreen.remove();
+    document.body.classList.add("portfolio-started");
+  });
+</script>
 </body>
 </html>

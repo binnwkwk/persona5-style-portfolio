@@ -173,6 +173,7 @@
 <script src="js/model.js" defer></script>
 <script src="js/view.js" defer></script>
 <script src="js/controller.js" defer></script>
+
 <script>
   const enterButton = document.getElementById("enter-fullscreen");
   const entryScreen = document.getElementById("entry-screen");
@@ -180,21 +181,35 @@
 
   enterButton.addEventListener("click", async () => {
     enterButton.disabled = true;
-    enterButton.textContent = "LOADING...";
-
-    portfolio.classList.add("entry-ready");
+    enterButton.textContent = "ENTERING...";
 
     try {
       if (portfolio.requestFullscreen) {
         await portfolio.requestFullscreen();
       }
     } catch (error) {
-      // Tetap lanjut jika fullscreen tidak didukung.
+      console.log("Fullscreen tidak tersedia:", error);
     }
 
+    try {
+      if (screen.orientation?.lock) {
+        await screen.orientation.lock("landscape");
+      }
+    } catch (error) {
+      // Orientation lock tidak didukung di semua browser.
+    }
+
+    portfolio.classList.add("landscape-mode");
     entryScreen.remove();
     document.body.classList.add("portfolio-started");
   });
+
+  document.addEventListener("fullscreenchange", () => {
+    if (!document.fullscreenElement) {
+      portfolio.classList.remove("landscape-mode");
+    }
+  });
 </script>
+  
 </body>
 </html>
